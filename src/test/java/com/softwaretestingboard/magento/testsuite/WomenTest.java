@@ -21,6 +21,27 @@ public class WomenTest extends BaseTest {
         womenPage.mouseHoverOnTop();
         womenPage.clickOnJacket();
         womenPage.selectFiletrFromDropDownList();
+          List<WebElement> listOrder = driver.findElements(By.xpath("//div[2]//div[3]//select[1]/option[3]"));
+        ArrayList<String> originalList = new ArrayList<>();
+        for (WebElement e : listOrder) {
+            originalList.add(e.getText());
+        }
+        System.out.println(originalList);
+        Collections.sort(originalList);
+        System.out.println(originalList);
+        //Select Sort By filter “Price”
+        selectByVisibleTextFromDropDown(By.xpath("//select[@id='sorter']"), "Product Name");
+
+        // Verify the products  displayed in descending  order
+        List<WebElement> listSorted = driver.findElements(By.xpath("//div[2]//div[3]//select[1]/option[3]"));
+        ArrayList<String> listAfterSorting = new ArrayList<>();
+        for (WebElement e : listSorted) {
+            listAfterSorting.add(e.getText());
+        }
+        System.out.println(listAfterSorting);
+
+        Assert.assertEquals(originalList, listAfterSorting);
+
 
     }
 
@@ -30,14 +51,7 @@ public class WomenTest extends BaseTest {
         womenPage.mouseHoverOnTop();
         womenPage.clickOnJacket();
         womenPage.setSelectByFilterPrice();
-//        List<WebElement> multiElement = driver.findElements(By.xpath("//span[@class='price-wrapper ']"));
-//        System.out.println("Total Items are: " + multiElement.size());
-//        double tmpValue = 0;
-//        for (WebElement list : multiElement) {
-//            String name1 = list.getText().replaceAll("[$]", "");
-//            System.out.println(name1);
-//            double itemValue = Double.valueOf(name1);
-//        }
+
 
         List<WebElement> listOrder = driver.findElements(By.xpath("//div[2]//div[3]//select[1]/option[3]"));
         ArrayList<String> originalList = new ArrayList<>();
